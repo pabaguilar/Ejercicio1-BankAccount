@@ -70,4 +70,78 @@ public class BankAccountTest {
         assertEquals(valorEsperado, valorPendiente);
     }
 
+    /*Los siguientes tests son para comprobar lo añadido en la clase BankAccount
+    para el control de los argumentos, es decir, que no sean incorrectos.
+    */
+
+    @Test
+    @DisplayName("El valor del importe total introducido en el metodo payment no puede ser negativo")
+    void ImporteTotalNegativoEnPayment() {
+        double total_amount =-10000;
+        double interes = 0.001;
+        int months = 12;
+
+        assertThrows(IllegalArgumentException.class, ()->bankAccount.payment(total_amount,interes,months));
+    }
+
+    @Test
+    @DisplayName("El valor del interes introducido en el metodo payment no puede ser negativo")
+    void InteresNegativoEnPayment() {
+        double total_amount = 10000;
+        double interes = -0.001;
+        int months = 12;
+
+        assertThrows(IllegalArgumentException.class, ()->bankAccount.payment(total_amount,interes,months));
+    }
+
+    @Test
+    @DisplayName("Los meses introducidos en el metodo payment no pueden ser negativos")
+    void MesesNegativosEnPayment() {
+        double total_amount =10000;
+        double interes = 0.001;
+        int months = -12;
+
+        assertThrows(IllegalArgumentException.class, ()->bankAccount.payment(total_amount,interes,months));
+    }
+
+    @Test
+    @DisplayName("El valor del importe introducido en el metodo pending no puede ser negativo")
+    void ImporteNegativoEnPending() {
+        double amount = -10000;
+        double interes = 0.001;
+        int months = 12;
+
+        assertThrows(IllegalArgumentException.class, ()->bankAccount.pending(amount, interes, months, 2));
+    }
+
+    @Test
+    @DisplayName("El valor del interes introducido en el metodo pending no puede ser negativo")
+    void InteresNegativoEnPending() {
+        double amount = 10000;
+        double interes = -0.001;
+        int months = 12;
+
+        assertThrows(IllegalArgumentException.class, ()->bankAccount.pending(amount, interes, months, 2));
+    }
+
+    @Test
+    @DisplayName("Los meses introducidos en el metodo pending no pueden ser negativos")
+    void MesesNegativosEnPending() {
+        double amount = 10000;
+        double interes = 0.001;
+        int months = -12;
+
+        assertThrows(IllegalArgumentException.class, ()->bankAccount.pending(amount, interes, months, 2));
+    }
+
+    @Test
+    @DisplayName("El valor del mes en concreto introducido en el metodo pending no puede ser negativo")
+    void MesConcretoNegativoEnPending() {
+        double amount = 10000;
+        double interes = 0.001;
+        int months = 12;
+
+        assertThrows(IllegalArgumentException.class, ()->bankAccount.pending(amount, interes, months, -2));
+    }
+
 }
